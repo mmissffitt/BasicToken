@@ -59,7 +59,7 @@ abstract contract myERC is IERC20, Ownable {
         require(sender != address(0), "You can not send tokens from the zero address");
         require(recipient != address(0), "you cannot send tokens to a null address");
 
-        _beforeTokenTransfer(sender, recipient, amount);
+       
 
         _balances[sender] -= amount;
         _balances[recipient] += amount;
@@ -70,7 +70,7 @@ abstract contract myERC is IERC20, Ownable {
     function _mint(address account, uint256 amount) internal virtual {
         require(account != address(0), "(zero address");
 
-        _beforeTokenTransfer(address(0), account, amount);
+       
 
         _totalSupply += amount;
         _balances[account] += amount;
@@ -81,7 +81,7 @@ abstract contract myERC is IERC20, Ownable {
     function _burn(address account, uint256 amount) internal virtual {
         require(account != address(0), "zero address");
 
-        _beforeTokenTransfer(account, address(0), amount);
+       
 
         _balances[account] -= amount;
         _totalSupply -= amount;
@@ -97,7 +97,7 @@ abstract contract myERC is IERC20, Ownable {
         emit Approval(owner, spender, amount);
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual {}
+   
 }
 
 contract BasicToken is myERC {
