@@ -3,19 +3,16 @@ pragma solidity ^0.8.0;
 
 import "./IERC20.sol";
 
-contract ERC20 is IERC20 {
-    string public name;
-    string public symbol;
-    uint8 public decimals;
+contract BasicToken is IERC20 {
+    string public name = "Basic Token";
+    string public symbol = "BTK";
+    uint8 public decimals = 18;
     uint256 public totalSupply;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
-    constructor(string memory _name, string memory _symbol, uint8 _decimals, uint256 _totalSupply) {
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
+    constructor(uint256 _totalSupply) {
         totalSupply = _totalSupply * 10 ** uint256(decimals);
         balanceOf[msg.sender] = totalSupply;
     }
@@ -58,12 +55,4 @@ contract ERC20 is IERC20 {
         emit Transfer(msg.sender, address(0), _value);
         return true;
     }
-}
-
-pragma solidity ^0.8.0;
-
-import "./ERC20.sol";
-
-contract BasicToken is ERC20 {
-    constructor(uint256 _initialSupply) ERC20("BasicToken", "BTK", 18, _initialSupply) {}
 }
