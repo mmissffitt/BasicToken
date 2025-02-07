@@ -67,4 +67,13 @@ contract TokenExchange {
     require(balance > 0, "No Ether to withdraw");
     payable(owner).transfer(balance);
 }
+
+function getTokenABalance() public view returns (uint256) {
+    return tokenA.balanceOf(address(this));
+}
+
+function getTokenBBalance() public view returns (uint256) {
+    return tokenB.balanceOf(address(this));
+}
+
 }
