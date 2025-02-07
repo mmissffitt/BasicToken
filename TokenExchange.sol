@@ -4,13 +4,16 @@ pragma solidity ^0.8.0;
 import "./BasicToken.sol";
 import "./SecondToken.sol";
 
+
 contract TokenExchange {
     BasicToken public tokenA;
     SecondToken public tokenB;
+    address public owner;
 
     constructor(BasicToken _tokenA, SecondToken _tokenB) {
         tokenA = _tokenA;
         tokenB = _tokenB;
+        owner = msg.sender;
     }
     function exchangeAtoB(uint256 _amountA) public {
         require(_amountA > 0, "Cannot exchange zero tokens");
@@ -57,4 +60,11 @@ contract TokenExchange {
             payable(msg.sender).transfer(msg.value - cost);
         }
     }
+
+    function withdrawEther() public {
+    require(msg.sender == owner, "Only the owner can withdraw Ether");
+    uint256 balance = address(this).balance;
+    require(balance > 0, "No Ether to withdraw");
+    payable(owner).transfer(balance);
+}
 }
